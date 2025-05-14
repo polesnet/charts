@@ -23,9 +23,9 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
-      {{- with .Values.imagePullSecrets }}
+      {{- if .Values.image.credentials.username }}
       imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
+        - name: {{ include "api.fullname" . }}-registry-secret
       {{- end }}
       serviceAccountName: {{ include "api.serviceAccountName" . }}
       securityContext:
@@ -34,12 +34,82 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: {{ .Values.app.port }}
               protocol: TCP
+          env:
+            - name: PORT
+              value: {{ .Values.app.port | quote }}
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "api.fullname" . }}-secrets
+                  key: JWT_SECRET
+            - name: DB_DSN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "api.fullname" . }}-secrets
+                  key: DB_DSN
+            - name: REDIS_ADDR
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "api.fullname" . }}-secrets
+                  key: REDIS_ADDR
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "api.fullname" . }}-secrets
+                  key: REDIS_PASSWORD
+            - name: REDIS_DB
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "api.fullname" . }}-secrets
+                  key: REDIS_DB
+            - name: PAYMENT_PROVIDER
+              value: {{ .Values.payment.provider | quote }}
+            - name: PAYMENT_APP_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "api.fullname" . }}-secrets
+                  key: PAYMENT_APP_ID
+            - name: PAYMENT_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "api.fullname" . }}-secrets
+                  key: PAYMENT_PRIVATE_KEY
+            - name: PAYMENT_PUBLIC_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "api.fullname" . }}-secrets
+                  key: PAYMENT_PUBLIC_KEY
+            - name: PAYMENT_IS_PRODUCTION
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "api.fullname" . }}-secrets
+                  key: PAYMENT_IS_PRODUCTION
+            - name: ALIYUN_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "api.fullname" . }}-secrets
+                  key: ALIYUN_ACCESS_KEY_ID
+            - name: ALIYUN_ACCESS_KEY_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "api.fullname" . }}-secrets
+                  key: ALIYUN_ACCESS_KEY_SECRET
+            - name: ALIYUN_SMS_SIGN_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "api.fullname" . }}-secrets
+                  key: ALIYUN_SMS_SIGN_NAME
+            - name: ALIYUN_SMS_TEMPLATE_CODE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "api.fullname" . }}-secrets
+                  key: ALIYUN_SMS_TEMPLATE_CODE
           livenessProbe:
             httpGet:
               path: /

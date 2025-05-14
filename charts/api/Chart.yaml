@@ -1,6 +1,6 @@
 apiVersion: v2
-name: api
-description: A Helm chart for Kubernetes
+name: polesnet-api
+description: A Polesnet API Helm chart for Kubernetes
 
 # A chart can be either an 'application' or a 'library' chart.
 #
