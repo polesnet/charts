@@ -1,6 +1,10 @@
 name: Release Charts
 
 on:
+  workflow_call:
+    secrets:
+      CR_TOKEN:
+        required: true
   push:
     branches:
       - main
