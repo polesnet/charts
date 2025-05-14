@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  polesnet-api:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2025-05-14T06:48:31.01295723Z"
+    description: A Polesnet API Helm chart for Kubernetes
+    digest: 9525e59fb24928721daee8b529cd039fe95db50de8d7dc0cd919b9bf2e10af54
+    name: polesnet-api
+    type: application
+    urls:
+    - https://github.com/polesnet/charts/releases/download/polesnet-api-0.1.0/polesnet-api-0.1.0.tgz
+    version: 0.1.0
+generated: "2025-05-14T06:48:31.012966567Z"
