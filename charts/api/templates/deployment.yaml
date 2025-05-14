@@ -23,11 +23,6 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
-      {{- if .Values.image.credentials.username }}
-      imagePullSecrets:
-        - name: {{ include "api.fullname" . }}-registry-secret
-      {{- end }}
-      serviceAccountName: {{ include "api.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
