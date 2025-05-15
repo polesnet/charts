@@ -111,12 +111,20 @@ spec:
                   key: ALIYUN_SMS_TEMPLATE_CODE
           livenessProbe:
             httpGet:
-              path: /
+              path: /api/v1/ping
               port: http
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            timeoutSeconds: 3
+            failureThreshold: 3
           readinessProbe:
             httpGet:
-              path: /
+              path: /api/v1/ping
               port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.volumeMounts }}
