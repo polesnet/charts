@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   # Image registry
-  registry: "harbor.polesnet.com"
+  registry: "hub.docker.com"
   # Image repository
   repository: "polesnet/polesnet-api"
   # Image tag, default to the chart appVersion
