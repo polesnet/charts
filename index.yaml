@@ -3,6 +3,16 @@ entries:
   polesnet-api:
   - apiVersion: v2
     appVersion: latest
+    created: "2025-05-16T08:04:54.897187382Z"
+    description: A Polesnet API Helm chart for Kubernetes
+    digest: bceadd947637832d5366cd55c253c252d4f10c0c334d086237f42a27eb94acb7
+    name: polesnet-api
+    type: application
+    urls:
+    - https://github.com/polesnet/charts/releases/download/polesnet-api-0.1.7/polesnet-api-0.1.7.tgz
+    version: 0.1.7
+  - apiVersion: v2
+    appVersion: latest
     created: "2025-05-15T10:17:01.475746143Z"
     description: A Polesnet API Helm chart for Kubernetes
     digest: 3bdbb340244b475d4fe63e62a86b5278d85e02d3beb66cec3971df86c1b0c63c
@@ -71,4 +81,4 @@ entries:
     urls:
     - https://github.com/polesnet/charts/releases/download/polesnet-api-0.1.0/polesnet-api-0.1.0.tgz
     version: 0.1.0
-generated: "2025-05-15T10:17:01.475775769Z"
+generated: "2025-05-16T08:04:54.897225413Z"
